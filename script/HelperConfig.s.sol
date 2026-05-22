@@ -1,4 +1,4 @@
-// SPDX-License-idenifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
 //Deploy mocks when we are on local anvin chain
