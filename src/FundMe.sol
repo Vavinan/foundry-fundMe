@@ -6,7 +6,7 @@ import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interf
 import {PriceConverter} from "./PriceConverter.sol";
 
 error FundMe__NotOwner();
- 
+
 contract FundMe {
     using PriceConverter for uint256;
 
@@ -17,6 +17,7 @@ contract FundMe {
     address private immutable i_owner;
     uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
     AggregatorV3Interface public s_priceFeed;
+
     constructor(address priceFeedAddress) {
         i_owner = msg.sender;
         s_priceFeed = AggregatorV3Interface(priceFeedAddress);
@@ -39,7 +40,7 @@ contract FundMe {
         _;
     }
 
-    function cheaperWithdraw() public onlyOwner{
+    function cheaperWithdraw() public onlyOwner {
         uint256 fundersLength = s_funders.length;
         for (uint256 funderIndex = 0; funderIndex < fundersLength; funderIndex++) {
             address funder = s_funders[funderIndex];
@@ -48,9 +49,8 @@ contract FundMe {
         s_funders = new address[](0);
         (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
         require(callSuccess, "Call failed");
-    } 
+    }
 
-    
     function withdraw() public onlyOwner {
         for (uint256 funderIndex = 0; funderIndex < s_funders.length; funderIndex++) {
             address funder = s_funders[funderIndex];
@@ -87,9 +87,9 @@ contract FundMe {
     receive() external payable {
         fund();
     }
+
     function getAddressToAmountFunded(address fundingAddress) external view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
-        
     }
 
     function getFunder(uint256 index) external view returns (address) {

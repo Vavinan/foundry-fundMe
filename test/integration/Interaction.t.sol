@@ -5,7 +5,8 @@ import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../../src/FundMe.sol";
 import {DeployFundMe} from "../../script/DeployFundMe.s.sol";
 import {FundFundMe, WithdrawFundMe} from "../../script/Interactions.s.sol";
-contract Interactions is Test{
+
+contract Interactions is Test {
     FundMe fundMe;
     address USER = makeAddr("user");
     uint256 constant SEND_VALUE = 0.1 ether;
@@ -16,9 +17,9 @@ contract Interactions is Test{
         DeployFundMe deploy = new DeployFundMe();
         fundMe = deploy.run();
         vm.deal(USER, STARTING_ETH_VALUE);
-
     }
-    function testUserCanFundInteraction() public{
+
+    function testUserCanFundInteraction() public {
         FundFundMe fundFundMe = new FundFundMe();
         fundFundMe.fundFundMe(address(fundMe));
 

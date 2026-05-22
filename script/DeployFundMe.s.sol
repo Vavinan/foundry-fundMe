@@ -6,7 +6,7 @@ import {FundMe} from "../src/FundMe.sol";
 import {HelperConfig} from "./HelperConfig.s.sol";
 
 contract DeployFundMe is Script {
-    function run() external returns (FundMe){
+    function run() external returns (FundMe) {
         HelperConfig helperConfig = new HelperConfig();
         address ethUsdpriceFeed = helperConfig.activeNetworkConfig();
         vm.startBroadcast(); // no gas used for above part since it is outside of broadcast
